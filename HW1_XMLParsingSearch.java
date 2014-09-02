@@ -1,4 +1,3 @@
-// Ricky Sanders
 // HW1
 
 import javax.xml.parsers.*;
