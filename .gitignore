@@ -1,0 +1,7 @@
+# indexed files
+*.cfe
+*.cfs
+*.si
+*.gen
+*.lock
+segments_4
