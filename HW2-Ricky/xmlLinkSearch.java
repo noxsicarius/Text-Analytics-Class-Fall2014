@@ -7,32 +7,28 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.*;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 public class xmlLinkSearch {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
        Pattern categoryTag = Pattern.compile("\\[\\[.*?\\]\\]");
-       try {
-          // Find the current directory so the file can be linked
-          File currentDirectory = new File(new File(".").getAbsolutePath());
-          String path = currentDirectory.getCanonicalPath();
+       String path = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW2-Ricky/simplewiki-20140814-pages-articles-multistream.xml";
+       FileInputStream input = new FileInputStream(path);
+       FileChannel channel = input.getChannel();
           
-          FileInputStream input = new FileInputStream(path + "/simplewiki-20140814-pages-articles-multistream.xml");
-          FileChannel channel = input.getChannel();
-          
-          ByteBuffer bbuf = channel.map(FileChannel.MapMode.READ_ONLY, 0, (int) channel.size());
-          CharBuffer cbuf = Charset.forName("8859_1").newDecoder().decode(bbuf);
-          Matcher tagmatch = categoryTag.matcher(cbuf);
+       ByteBuffer bbuf = channel.map(FileChannel.MapMode.READ_ONLY, 0, (int) channel.size());
+       CharBuffer cbuf = Charset.forName("8859_1").newDecoder().decode(bbuf);
+       Matcher tagmatch = categoryTag.matcher(cbuf);
 
-          while (tagmatch.find()){
-              String match = tagmatch.group();
-              match = match.replaceAll("\\[","");
-              match = match.replaceAll("\\]","");              
-              System.out.println("\"" + match + "\"");
-          }
-
-       } catch (IOException e) {
-          e.printStackTrace();
-        }
+       while (tagmatch.find()){
+           String match = tagmatch.group();
+           match = match.replaceAll("\\[","");
+           match = match.replaceAll("\\]","");
+           System.out.println("\"" + match + "\"");
+       }
     }    
 }

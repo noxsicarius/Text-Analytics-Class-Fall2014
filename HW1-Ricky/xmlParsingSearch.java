@@ -1,12 +1,11 @@
 // HW1
-
 import javax.xml.parsers.*;
 import java.io.*;
 import javax.xml.xpath.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-public class WattsonSearch {
+public class xmlParsingSearch {
     
     public static void main(String[] args) {
         
@@ -14,7 +13,8 @@ public class WattsonSearch {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document document = db.parse(new FileInputStream("C:/Users/Ricky/Desktop/j-questions.xml"));
+            String path = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW1-Ricky/j-questions.xml";
+            Document document = db.parse(new FileInputStream(path));
             XPath xp = XPathFactory.newInstance().newXPath();
             
             String expression1 = "/jeopardy/clue[category = 'COMMON BONDS']/id";
@@ -43,6 +43,5 @@ public class WattsonSearch {
         } catch (SAXException | IOException | ParserConfigurationException | XPathExpressionException e) {
             e.printStackTrace();
         }
-
     }    
 }
