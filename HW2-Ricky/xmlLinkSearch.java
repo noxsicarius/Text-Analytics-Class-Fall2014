@@ -8,16 +8,11 @@ import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 public class xmlLinkSearch {
     public static void main(String[] args) throws IOException {
        Pattern categoryTag = Pattern.compile("\\[\\[.*?\\]\\]");
-       String path = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW2-Ricky/simplewiki-20140814-pages-articles-multistream.xml";
-       FileInputStream input = new FileInputStream(path);
+       String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW2-Ricky";
+       FileInputStream input = new FileInputStream(filePath + "/simplewiki-20140814-pages-articles-multistream.xml");
        FileChannel channel = input.getChannel();
           
        ByteBuffer bbuf = channel.map(FileChannel.MapMode.READ_ONLY, 0, (int) channel.size());

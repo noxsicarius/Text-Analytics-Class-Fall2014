@@ -13,8 +13,8 @@ public class xmlParsingSearch {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            String path = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW1-Ricky/j-questions.xml";
-            Document document = db.parse(new FileInputStream(path));
+            String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW1-Ricky/";
+            Document document = db.parse(new FileInputStream(filePath + "j-questions.xml"));
             XPath xp = XPathFactory.newInstance().newXPath();
             
             String expression1 = "/jeopardy/clue[category = 'COMMON BONDS']/id";
@@ -43,5 +43,6 @@ public class xmlParsingSearch {
         } catch (SAXException | IOException | ParserConfigurationException | XPathExpressionException e) {
             e.printStackTrace();
         }
+
     }    
 }
