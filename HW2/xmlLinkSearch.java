@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class xmlLinkSearch {
     public static void main(String[] args) throws IOException {
        Pattern categoryTag = Pattern.compile("\\[\\[.*?\\]\\]");
-       String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW2-Ricky";
+       String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW2";
        FileInputStream input = new FileInputStream(filePath + "/simplewiki-20140814-pages-articles-multistream.xml");
        FileChannel channel = input.getChannel();
           

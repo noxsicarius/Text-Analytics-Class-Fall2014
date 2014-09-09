@@ -13,8 +13,8 @@ public class xmlParsingSearch {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW1-Ricky/";
-            Document document = db.parse(new FileInputStream(filePath + "j-questions.xml"));
+            String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW1";
+            Document document = db.parse(new FileInputStream(filePath + "/j-questions.xml"));
             XPath xp = XPathFactory.newInstance().newXPath();
             
             String expression1 = "/jeopardy/clue[category = 'COMMON BONDS']/id";

@@ -13,7 +13,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class LuceneIndexer {
-    private static final String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW3-Ricky";
+    private static final String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW3";
     private static final String indexDirectory = filePath;
     private static final String fileToBeIndexed = filePath + "/20121202-wiki-en_000000 short.xml";
 
@@ -22,9 +22,9 @@ public class LuceneIndexer {
         Directory dir = FSDirectory.open(new File(indexDirectory));
             
         //here we are using a standard analyzer, there are a lot of analyzers available to our use.
-        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_46);
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_4_9);
 
-        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_46, analyzer);
+        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_4_9, analyzer);
 
         //this mode by default overwrites the previous index, not a very good option in real usage
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
