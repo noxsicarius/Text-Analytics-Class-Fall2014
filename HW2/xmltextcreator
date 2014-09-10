@@ -1,0 +1,143 @@
+import java.io.BufferedReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.FileWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class BufferedReaderExample {
+	public static void main(String args[]) {
+		//reading file line by line in Java using BufferedReader
+		FileInputStream fis = null;
+		BufferedReader reader = null;
+		BufferedWriter out=null;
+		Matcher matcher;
+		try {
+			fis = new FileInputStream("C:\\Users\\Hossein\\Desktop\\simplewiki-20140814-pages-articles-multistream.xml");
+			reader = new BufferedReader(new InputStreamReader(fis));
+			out = new BufferedWriter(new FileWriter("sample1.txt"));
+			System.out.println("Reading File line by line using BufferedReader");
+			String line = reader.readLine();
+			String storage = "";
+			Pattern pattern1 = Pattern.compile("\\[\\[File:(.*?)\\|(.*?)\\|(.*?)\\|(.*?)\\|(.*?)\\]\\]");
+			Pattern pattern2 = Pattern.compile("\\[\\[(.*?)\\|(.*?)\\]\\]");
+			Pattern pattern3 = Pattern.compile("\\[\\[\\[(.*?)\\]\\]\\]");
+			Pattern pattern4 = Pattern.compile("\\[\\[(.*?)\\]\\]");
+			Pattern pattern17 = Pattern.compile("\\[http:(.*?)\\s(.*?)\\]");
+			Pattern pattern5 = Pattern.compile("\'\'\'");
+			Pattern pattern6 = Pattern.compile("\'\'");
+			Pattern pattern7 = Pattern.compile("===(.*?)===");
+			Pattern pattern8 = Pattern.compile("==(.*?)==");
+			Pattern pattern9 = Pattern.compile("\\{\\{(.*?)\\}\\}");
+			Pattern pattern18 = Pattern.compile("\\{(.*?)\\|(.*?)\\}");
+			
+			
+			Pattern pattern10 = Pattern.compile("(\\s+)<page>");
+			Pattern pattern11 = Pattern.compile("</page>");
+			Pattern pattern12 = Pattern.compile("(\\s+)<title>");
+			Pattern pattern13 = Pattern.compile("</title>(.*?)<id>");
+			Pattern pattern14 = Pattern.compile("<id>(.*?)</id>");
+			Pattern pattern15 = Pattern.compile("</docno>(.*?)<text(.*?)>");
+			Pattern pattern16 = Pattern.compile("</text>(.*?)</DOC>");
+			
+//			Pattern pattern10 = Pattern.compile("(\\s+)<page>");
+//			Pattern pattern11 = Pattern.compile("</page>");
+//			Pattern pattern12 = Pattern.compile("(\\s+)<title>");
+//			Pattern pattern13 = Pattern.compile("</title>(.*?)<id>");
+//			Pattern pattern14 = Pattern.compile("(\\s+)<id>(.*?)</id>");
+//			Pattern pattern15 = Pattern.compile("</id>(.*?)<text(.*?)>");
+//			Pattern pattern16 = Pattern.compile("(\\s+)</text>(.*?)</DOC>");storage=matcher.replaceAll("</title>"+System.getProperty("line.separator")+"<id>");
+//				
+			while(line != null){
+				
+				if (line.indexOf("</page>")!=-1)
+				{
+					storage+=line;
+					matcher = pattern1.matcher(storage);
+					storage=matcher.replaceAll("$5");
+					matcher = pattern2.matcher(storage);
+					storage=matcher.replaceAll("\\[\\["+"$1"+" OR "+"$2"+"\\]\\]");
+					
+					matcher = pattern3.matcher(storage);
+					storage=matcher.replaceAll("$1");
+					matcher = pattern4.matcher(storage);
+					storage=matcher.replaceAll("$1");
+					matcher = pattern4.matcher(storage);
+					storage=matcher.replaceAll("$1");
+					matcher = pattern17.matcher(storage);
+					storage=matcher.replaceAll("$2");
+					matcher = pattern5.matcher(storage);
+					storage=matcher.replaceAll("");
+					matcher = pattern6.matcher(storage);
+					storage=matcher.replaceAll("");
+					matcher = pattern7.matcher(storage);
+					storage=matcher.replaceAll("$1");
+					matcher = pattern8.matcher(storage);
+					storage=matcher.replaceAll("$1");
+					matcher = pattern9.matcher(storage);
+					storage=matcher.replaceAll("");
+					matcher = pattern18.matcher(storage);
+					storage=matcher.replaceAll("");
+					
+					matcher = pattern10.matcher(storage);
+					storage=matcher.replaceAll("<DOC>");
+					matcher = pattern11.matcher(storage);
+					storage=matcher.replaceAll("</DOC>");
+					
+					
+					matcher = pattern12.matcher(storage);
+					storage=matcher.replaceAll(System.getProperty("line.separator")+"<title>");
+					matcher = pattern13.matcher(storage);
+					storage=matcher.replaceAll("</title>"+System.getProperty("line.separator")+"<id>");
+					matcher = pattern14.matcher(storage);
+					storage=matcher.replaceAll("<docno>"+"wikipedia"+"$1"+"</docno>");
+					matcher = pattern15.matcher(storage);
+					storage=matcher.replaceAll("</docno>"+System.getProperty("line.separator")+"<text>");
+					matcher = pattern16.matcher(storage);
+					storage=matcher.replaceAll(System.getProperty("line.separator")+"</text>"+System.getProperty("line.separator")+"</DOC>");
+					matcher = pattern14.matcher(storage);
+//					storage=matcher.replaceAll("<id>"+"wikipedia"+"$2"+"</id>");
+//					matcher = pattern15.matcher(storage);
+//					storage=matcher.replaceAll("</id>"+System.getProperty("line.separator")+"<text>");
+//					matcher = pattern16.matcher(storage);
+//					storage=matcher.replaceAll(System.getProperty("line.separator")+"</text>"+System.getProperty("line.separator")+"</DOC)");
+////					
+					out.write(storage);
+					out.newLine();
+					storage="";
+					}
+//					
+				else
+				{
+					storage+=line;
+				}
+				//String replaceAll = matcher.replaceAll("Joe Blocks ");
+				//System.out.println("replaceAll   = " + replaceAll);
+				
+				//storage+=(line);
+				//System.out.println(line);
+				line = reader.readLine();
+				
+			}
+            out.close();
+            System.out.println("Done");
+        
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(BufferedReaderExample.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(BufferedReaderExample.class.getName()).log(Level.SEVERE, null, ex);
+		} finally {
+			try {
+				reader.close();
+				fis.close();
+			} catch (IOException ex) {
+				Logger.getLogger(BufferedReaderExample.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+}
