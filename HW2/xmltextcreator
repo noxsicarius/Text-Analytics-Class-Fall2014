@@ -35,7 +35,8 @@ public class BufferedReaderExample {
 			Pattern pattern8 = Pattern.compile("==(.*?)==");
 			Pattern pattern9 = Pattern.compile("\\{\\{(.*?)\\}\\}");
 			Pattern pattern18 = Pattern.compile("\\{(.*?)\\|(.*?)\\}");
-			
+			Pattern pattern19 = Pattern.compile("\\[\\[");
+			Pattern pattern20 = Pattern.compile("\\]\\]");
 			
 			Pattern pattern10 = Pattern.compile("(\\s+)<page>");
 			Pattern pattern11 = Pattern.compile("</page>");
@@ -82,6 +83,10 @@ public class BufferedReaderExample {
 					matcher = pattern9.matcher(storage);
 					storage=matcher.replaceAll("");
 					matcher = pattern18.matcher(storage);
+					storage=matcher.replaceAll("");
+					matcher = pattern19.matcher(storage);
+					storage=matcher.replaceAll("");
+					matcher = pattern20.matcher(storage);
 					storage=matcher.replaceAll("");
 					
 					matcher = pattern10.matcher(storage);
