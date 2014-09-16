@@ -19,7 +19,7 @@ public class xmlLinkSearch {
        String filePath = System.getProperty("user.home") + "/Documents/GitHub/Text-Analytics-Class-Fall2014/HW2";
        FileInputStream input = new FileInputStream(filePath + "/simplewiki-20140814-pages-articles-multistream.xml");
        Writer tempFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath + "/tempFile.xml"), "utf-8"));
-       Writer outputFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath + "/querryLinks.txt"), "utf-8"));
+       Writer outputFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath + "/listLinks.txt"), "utf-8"));
        FileChannel channel = input.getChannel();
        ByteBuffer bbuf = channel.map(FileChannel.MapMode.READ_ONLY, 0, (int) channel.size());
        CharBuffer cbuf = Charset.forName("8859_1").newDecoder().decode(bbuf);
@@ -32,6 +32,7 @@ public class xmlLinkSearch {
            //System.out.println(output);
            
        }
+       
        tempFile.write(bufferString);
        
        input = new FileInputStream(filePath + "/tempFile.xml");
@@ -47,5 +48,11 @@ public class xmlLinkSearch {
            System.out.println(output);
            outputFile.write(output + "\n");
        }
+       
+       //Cleanup
+       input.close();
+       channel.close();
+       tempFile.close();
+       outputFile.close();
     }
 }
